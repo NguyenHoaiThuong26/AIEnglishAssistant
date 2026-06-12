@@ -3,6 +3,7 @@ package com.englishcoach.english_coach_backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
@@ -18,27 +19,26 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Flashcard {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(columnDefinition = "TEXT")
-    private String front;
+    String front;
 
     @Column(columnDefinition = "TEXT")
-    private String back;
+    String back;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    LocalDateTime updatedAt;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vocabulary_id", nullable = false)
-    private Vocabulary vocabulary;
+    Vocabulary vocabulary;
 
     @PrePersist
     protected void onCreate() {

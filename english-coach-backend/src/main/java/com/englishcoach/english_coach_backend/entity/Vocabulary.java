@@ -2,6 +2,7 @@ package com.englishcoach.english_coach_backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
@@ -12,43 +13,40 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Vocabulary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(nullable = false)
-    private String word;
+    String word;
 
-    @Column(name = "part_of_speech")
-    private String partOfSpeech;
-
-    @Column(columnDefinition = "TEXT")
-    private String meaning;
-
-    private String phonetic;
+    String partOfSpeech;
 
     @Column(columnDefinition = "TEXT")
-    private String example;
+    String meaning;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+    String phonetic;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(columnDefinition = "TEXT")
+    String example;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    String imageUrl;
+
+    LocalDateTime createdAt;
+
+    LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    User user;
 
     @OneToOne(mappedBy = "vocabulary",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private Flashcard flashcard;
+    Flashcard flashcard;
 
     @PrePersist
     protected void onCreate() {
