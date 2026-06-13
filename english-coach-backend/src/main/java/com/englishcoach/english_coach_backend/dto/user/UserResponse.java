@@ -1,7 +1,10 @@
 package com.englishcoach.english_coach_backend.dto.user;
 
+import com.englishcoach.english_coach_backend.dto.auth.RoleResponse;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -21,4 +24,6 @@ public class UserResponse {
     String lastName;
 
     boolean isActive;
+
+    Set<RoleResponse> roles;
 }
