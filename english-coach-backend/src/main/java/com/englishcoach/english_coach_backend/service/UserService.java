@@ -122,5 +122,18 @@ public class UserService {
     }
 
 
+    public UserResponse updateUserStatus(Long id, boolean status) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + id));
+        user.setActive(status);
+        User updatedUser = userRepository.save(user);
+
+        return userMapper.toUserResponse(updatedUser);
+    }
+    
+    
+
+
+
 
 }
