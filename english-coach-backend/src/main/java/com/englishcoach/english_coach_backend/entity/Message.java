@@ -2,6 +2,7 @@ package com.englishcoach.english_coach_backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
@@ -12,25 +13,25 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private MessageRole role;
+    MessageRole role;
 
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String content;
+    String content;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conversation_id", nullable = false)
-    private Conversation conversation;
+    Conversation conversation;
 
     @PrePersist
     protected void onCreate() {

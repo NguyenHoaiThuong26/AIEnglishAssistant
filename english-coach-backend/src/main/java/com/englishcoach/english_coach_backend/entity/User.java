@@ -2,9 +2,12 @@ package com.englishcoach.english_coach_backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -13,37 +16,44 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    String username;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    String email;
 
-    @Column(nullable = false)
-    private String password;
+    String password;
 
-    @Column(name = "full_name", nullable = false)
-    private String fullName;
+    String firstName;
 
-    @Column(name = "is_active")
-    private boolean isActive = true;
+    String lastName;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    boolean isActive = true;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    LocalDateTime createdAt;
+
+    LocalDateTime updatedAt;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Conversation> conversations;
+    List<Conversation> conversations;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Vocabulary> vocabularies;
+    List<Vocabulary> vocabularies;
 
     @PrePersist
     protected void onCreate() {
