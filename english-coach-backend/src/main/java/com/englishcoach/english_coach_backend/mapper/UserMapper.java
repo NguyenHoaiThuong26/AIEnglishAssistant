@@ -4,14 +4,12 @@ import com.englishcoach.english_coach_backend.dto.auth.RegisterRequest;
 import com.englishcoach.english_coach_backend.dto.user.UpdateUserRequest;
 import com.englishcoach.english_coach_backend.dto.user.UserResponse;
 import com.englishcoach.english_coach_backend.entity.User;
-import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
 
 
-@Mapper(componentModel = "spring", uses = RoleMapper.class)
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
     User toUser(RegisterRequest request);

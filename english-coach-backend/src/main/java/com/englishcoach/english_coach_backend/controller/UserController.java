@@ -37,4 +37,6 @@ public class UserController {
                 .data(userService.getAllUsers())
                 .build();
     }
+
+
 }

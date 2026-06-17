@@ -22,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Service
@@ -30,7 +29,6 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Slf4j
 public class UserService {
-    private static final String DEFAULT_ROLE_NAME = "USER";
 
     UserRepository userRepository;
     RoleRepository roleRepository;
